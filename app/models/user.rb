@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   # Callbacks
   before_save :generate_auth_token
+
+  #Relations
+  has_many :items
   
   # Validations
   validates :email, uniqueness: true
