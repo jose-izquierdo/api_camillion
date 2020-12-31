@@ -26,6 +26,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'pundit'
 gem 'rolify'
 
+# Serialization
+gem 'active_model_serializers'
+
 # Pagination
 gem 'will_paginate', '~> 3.1.0'
 
