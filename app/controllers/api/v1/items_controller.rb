@@ -1,6 +1,8 @@
 module Api::V1
   class ItemsController < ApiController
     def index
+      @items =  authorize do_paginate(Item.all, params[:page])  
+      render json: @items, status: :ok
     end
     def create
       @item = authorize Item.new(item_params)
