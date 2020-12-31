@@ -1,6 +1,6 @@
 # README
 
-![Travis](https://travis-ci.org/jose-izquierdo/cam.svg?branch=master)
+![Travis](https://travis-ci.org/jose-izquierdo/api_camillion.svg?branch=master)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
