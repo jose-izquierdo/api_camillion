@@ -51,7 +51,6 @@ module Api::V1
     #           "email": "luke@rebellion.com"
     #         },
     #       }
-  
     def create
       @item = authorize Item.new(item_params)
       render json: @item, status: :created if @item.save!
