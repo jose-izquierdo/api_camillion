@@ -1,6 +1,7 @@
 module Api::V1
   class ApiController < ApplicationController
     include Pundit
+    include ApiException
     
     before_action :authenticate_token, :authenticate_and_sign_in
   
@@ -18,6 +19,10 @@ module Api::V1
       if @current_user.blank?
         render :json => {errors: {auth_token: 'invalid access'} }, :status => :unauthorized
       end
+    end
+
+    def pundit_user
+      @current_user
     end
   end
 end
