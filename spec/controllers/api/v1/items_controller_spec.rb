@@ -1,6 +1,56 @@
 RSpec.describe Api::V1::ItemsController, type: :controller do
   let(:admin) {create :user, :admin}
   let(:user) {create :user, :user}
+  let(:external_user) {create :user}
+  
+  describe 'get' do
+    before do
+      api_auth
+      user_auth(user.authentication_token)
+      create_list(:item, 12)
+      page.driver.get(items_path)
+      @body = JSON.parse(page.body)
+    end
+    
+    context 'with logged user. Fetch page 1' do
+      it 'must return status 200' do
+        expect(page.status_code).to match(200)
+      end
+
+      it 'must return 12 items' do
+        expect(Item.count).to match(12)
+      end
+
+      it 'must return 10 items for page: 1' do
+        expect(@body.count).to match(10)
+      end
+    end
+    
+    context 'with logged user. Fetch page 2' do
+      before do
+        page.driver.get(items_path, {page: 2})
+        @body = JSON.parse(page.body)
+      end
+
+      it 'must return status 200' do
+        expect(page.status_code).to match(200)
+      end
+      
+      it 'must return 2 items' do
+        expect(@body.count).to match(2)
+      end
+    end
+
+    context 'with NOT logged in user' do
+      it 'must return an unauthorized' do
+        user_auth(external_user.authentication_token)
+        page.driver.get(items_path)
+        
+        expect(page.status_code).to match 401
+      end
+    end
+  end
+
   
   describe 'create' do
     before do

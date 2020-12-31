@@ -2,6 +2,7 @@ module Api::V1
   class ApiController < ApplicationController
     include Pundit
     include ApiException
+    include PaginationHelper
     
     before_action :authenticate_token, :authenticate_and_sign_in
   
